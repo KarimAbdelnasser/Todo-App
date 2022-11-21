@@ -1,0 +1,137 @@
+<html lang="en">
+    <head>
+        <title>Verification</title>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            @import
+            url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+            * { margin: 0; padding: 0; box-sizing: border-box; font-family:
+            "Poppins", sans-serif; } html, body { display: grid; height: 100%;
+            width: 100%; place-items: center; background:
+            -webkit-linear-gradient( left, #003366, #004080, #0059b3, #0073e6 );
+            } ::selection { background: #1a75ff; color: #fff; } #wrapper {
+            font-family: Lato; font-size: 1.5rem; text-align: center;
+            box-sizing: border-box; color: #333; } #dialog { overflow: hidden;
+            max-width: 390px; background: #fff; padding: 30px; border-radius:
+            15px; box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1); } #dialog h3 {
+            margin: 0 0 10px; padding: 0; line-height: 1.25; } #dialog span {
+            font-size: 90%; } #dialog #form { max-width: 240px; margin: 25px
+            auto 0; } #dialog #form input { margin: 0 5px; text-align: center;
+            line-height: 80px; font-size: 50px; border: solid 1px #ccc;
+            box-shadow: 0 0 5px #ccc inset; outline: none; width: 20%;
+            transition: all 0.2s ease-in-out; border-radius: 3px; } #dialog
+            #form input:focus { border-color: purple; box-shadow: 0 0 5px #003366
+            inset; } #dialog #form input::selection { background: transparent; }
+            .btn-primary {color: #fff; font-size: 20px; margin: 30px 0 50px; width: 100%; padding: 6px;
+            border-radius: 15px; background: -webkit-linear-gradient( right,
+            #003366, #004080, #0059b3, #0073e6 ); border: none; overflow:
+            hidden; text-transform: uppercase; cursor: pointer; } .div { position:
+            relative; z-index: 1; }
+            .alert{
+                background-color: red;
+                margin: auto;
+                text-align: center;
+                padding: 6px;
+                font-size: smaller;
+            }
+            .full{
+                color:red;
+                text-align: center;
+                font-size: smaller;
+            }
+            #demo{
+                color:red;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body onLoad="focusOnMyInputBox();">
+        <div id="wrapper">
+            <div id="dialog">
+                <h3>
+                    Please enter the 4-digit verification code we sent via
+                    Email:
+                </h3>
+                <form action="/verification" method="POST" id="form">
+                    {{#if error}}
+                        <div class="alert alert-danger">{{error}}</div>
+                    {{/if}}
+                    <input
+                        id="input1"
+                        type="text"
+                        maxlength="1"
+                        size="1"
+                        min="0"
+                        max="9"
+                        name="OTP1"
+                        pattern="[0-9]{1}"
+                    />
+                    <input
+                        type="text"
+                        maxlength="1"
+                        size="1"
+                        min="0"
+                        max="9"
+                        name="OTP2"
+                        pattern="[0-9]{1}"
+                    /><input
+                        type="text"
+                        maxlength="1"
+                        size="1"
+                        min="0"
+                        max="9"
+                        name="OTP3"
+                        pattern="[0-9]{1}"
+                    /><input
+                        type="text"
+                        maxlength="1"
+                        size="1"
+                        min="0"
+                        max="9"
+                        name="OTP4"
+                        pattern="[0-9]{1}"
+                    />
+                    <button class="btn btn-primary">Verify</button>
+                    <div class="full">OTP will be invalid after</div>
+                    <p id="demo"></p>
+                </form>
+                <div class="div">
+                    Didn't receive the code?<br />
+                    <a href="/changeEmail">Send code again</a><br />
+                    <a href="/changeEmail">Change Email</a>
+                </div>
+            </div>
+        </div>
+        <script>
+            function focusOnMyInputBox(){                                 
+                document.getElementById("input1").focus();
+            }
+            var t = new Date();
+            var countDownDate = t.setSeconds(t.getSeconds() + 22);
+            var x = setInterval(function () {
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("demo").innerHTML = seconds + "s ";
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "EXPIRED";
+            }
+            }, 1000);
+            var container = document.getElementById("form"); container.onkeyup =
+            function (e) { var target = e.srcElement || e.target; var maxLength
+            = parseInt( target.attributes["maxlength"].value, 10 ); var myLength
+            = target.value.length; if (myLength >= maxLength) { var next =
+            target; while ((next = next.nextElementSibling)) { if (next == null)
+            break; if (next.tagName.toLowerCase() === "input") { next.focus();
+            break; } } } 
+            // Move to previous field if empty (user pressed
+            else if (myLength === 0) { var previous = target; while
+            ((previous = previous.previousElementSibling)) { if (previous ==
+            null) break; if (previous.tagName.toLowerCase() === "input") {
+            previous.focus(); break; } } } };
+        </script>
+    </body>
+</html>
