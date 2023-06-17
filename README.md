@@ -6,7 +6,7 @@ This is a backend application built with JavaScript and Node.js, designed to pro
 
 This project is a simple todo application developed using Node.js. It allows users to manage their tasks by adding, marking as completed, and deleting tasks. The application provides a user-friendly web interface to interact with the todo list.
 
-### Live on Vercel: [Project Website](https://todo-app-hbs.vercel.app/)
+### Live on Vercel: [ToDo](https://todo-app-hbs.vercel.app/)
 
 ## Getting Started
 
