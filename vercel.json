@@ -15,5 +15,7 @@
     "env": {
         "PUBLIC_URL": "/",
         "VIEWS_DIRECTORY": "views"
-    }
+    },
+    "public": true,
+    "ignore": ["views/**/*.js", "views/**/*.css"]
 }

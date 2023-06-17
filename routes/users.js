@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 
 //Register
 router.get("/register", (req, res) => {
-    res.render("signup.hbs");
+    res.render("signUp.hbs");
 });
 router.post("/register", async (req, res) => {
     try {
