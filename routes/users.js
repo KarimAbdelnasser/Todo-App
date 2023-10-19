@@ -209,6 +209,7 @@ router.post("/forgetVerification", auth, async (req, res) => {
                 return res.status(500).send({ msg: err.message });
             }
         });
+        await await OTP.findOneAndDelete({ userId: req.user._id });
         res.redirect("/resetPass");
     } else {
         res.render("forgetverification.hbs", {
