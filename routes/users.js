@@ -196,6 +196,11 @@ router.post("/forgetVerification", auth, async (req, res) => {
     const pass = req.body;
     let otpIn = `${pass.OTP1}${pass.OTP2}${pass.OTP3}${pass.OTP4}`;
     const otpOut = await OTP.find({ userId: req.user._id });
+    if (!otpOut[0]) {
+        return res.render("forgetverification.hbs", {
+            error: "OTP EXPIRED!",
+        });
+    }
     if (otpIn == otpOut[0].digits) {
         const user = await User.findById(req.user._id);
         user.isVerified = true;
@@ -207,8 +212,9 @@ router.post("/forgetVerification", auth, async (req, res) => {
         res.redirect("/resetPass");
     } else {
         res.render("forgetverification.hbs", {
-            error: "OTP EXPIRED!",
+            error: "OTP WRONG, you can get another one by clicking on Send code again!",
         });
+        return await await OTP.findOneAndDelete({ userId: req.user._id });
     }
 });
 
